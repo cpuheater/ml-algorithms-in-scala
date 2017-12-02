@@ -35,14 +35,12 @@ class LinearRegressionSpec  extends TestSupport{
     val iterations = 500
 
     val model = new LinearRegression()
-    val coef = model.fit(x, y, lr, iterations)
+    model.fit(x, y, lr, iterations)
 
     val year = 27f
     val pred = model.predict(Nd4j.create(Array(year)))
 
-    println(s"Internet users (per 100 people) in ${year}: ${pred}")
-
-
+    println(s"Number of internet users (per 100 people) in 20${year} is ${pred}")
   }
 
 
