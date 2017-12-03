@@ -21,8 +21,6 @@ class LinearRegressionSpec  extends TestSupport{
 
     val recordReader = new CSVRecordReader(numLinesToSkip, delimiter)
     recordReader.initialize(new FileSplit(new ClassPathResource("internet-users.csv").getFile))
-
-
     val iter:DataSetIterator = new RecordReaderDataSetIterator(recordReader, 1000000,0,0, true)
     val dataSet: DataSet = iter.next()
 
@@ -30,25 +28,17 @@ class LinearRegressionSpec  extends TestSupport{
     val x = dataSet.getFeatures()
     val y = dataSet.getLabels()
 
-
     val lr = 0.02f
     val iterations = 500
 
     val model = new LinearRegression()
-    model.fit(x, y, lr, iterations)
-
+    val params = model.fit(x, y, lr, iterations)
+    println(s"Parameters theta_0 = ${params.getFloat(0)} theta_1 = ${params.getFloat(1)}")
     val year = 27f
     val pred = model.predict(Nd4j.create(Array(year)))
 
     println(s"Number of internet users (per 100 people) in 20${year} is ${pred}")
   }
 
-
-  def normalize(features: INDArray): INDArray = {
-    val mean = features.mean(0)
-    val std = features.std(0)
-    val normFeatures = features.subRowVector(mean).divRowVector(std)
-    normFeatures
-  }
 
 }
