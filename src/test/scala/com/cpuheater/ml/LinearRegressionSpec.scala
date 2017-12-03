@@ -37,7 +37,7 @@ class LinearRegressionSpec  extends TestSupport{
     val year = 27f
     val pred = model.predict(Nd4j.create(Array(year)))
 
-    println(s"Number of internet users (per 100 people) in 20${year} is ${pred}")
+    println(s"The predicted number of internet users (per 100 people) in 20${year} is ${pred}")
   }
 
 
