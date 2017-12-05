@@ -1,3 +1,6 @@
 Implementations of various commonly used machine learning algorithms in Scala
 
-  Work in progress !
+- Linear Regression
+- Logistic Regression
+
+  work in progress !
