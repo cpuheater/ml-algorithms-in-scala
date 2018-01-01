@@ -32,7 +32,7 @@ class LinearRegressionSpec  extends TestSupport{
     val params = model.fit(x, y, lr, iterations)
     println(s"Parameters theta_0 = ${params.getFloat(0)} theta_1 = ${params.getFloat(1)}")
 
-    val year = 27f
+    val year = 37f
     val pred = model.predict(Nd4j.create(Array(year)))
     println(s"The predicted number of internet users (per 100 people) in 20${year} is ${pred}")
 
