@@ -20,6 +20,7 @@ class LinearRegressionSpec  extends TestSupport{
     val delimiter = ','
     val recordReader = new CSVRecordReader(numLinesToSkip, delimiter)
     recordReader.initialize(new FileSplit(new ClassPathResource("internet-users.csv").getFile))
+
     val iter:DataSetIterator = new RecordReaderDataSetIterator(recordReader, 1000000,0,0, true)
     val dataSet: DataSet = iter.next()
     val x = dataSet.getFeatures()
