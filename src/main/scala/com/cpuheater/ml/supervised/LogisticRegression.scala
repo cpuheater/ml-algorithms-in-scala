@@ -19,7 +19,8 @@ class LogisticRegression {
   def predict(x: INDArray): Float = {
     val bias = Nd4j.ones(x.rows(), 1)
     val xWithBias =  Nd4j.concat(1, bias, x)
-    if(sigmoid(xWithBias.mmul(computedThetas.T)).getFloat(0) >0.5)
+    val out = sigmoid(xWithBias.mmul(computedThetas.T))
+    if(out.data.getFloat(0) >0.5)
       1
     else
       0
