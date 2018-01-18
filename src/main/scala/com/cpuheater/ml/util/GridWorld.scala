@@ -3,13 +3,13 @@ package com.cpuheater.ml.util
 import org.nd4j.linalg.api.ndarray.INDArray
 import org.nd4j.linalg.factory.Nd4j
 
-class GridWorld(size: Int, terminateStates: Map[Int, Int], default: Int = -1, terminalDefault: Int=0) {
+class GridWorld(size: Int, terminateStates: Map[Int, Double], default: Double = -0.1, terminalDefault: Int=0) {
   import GridWorld._
 
-  private val grid = (0 until size*size).map{
+  private val grid: List[Double] = (0 until size*size).map{
     index =>
       terminateStates.getOrElse(index, default)
-  }
+  }.toList
 
   def getSize = size
 
@@ -58,7 +58,7 @@ class GridWorld(size: Int, terminateStates: Map[Int, Int], default: Int = -1, te
     }
   }
 
-  def move(currentPos: Int,  action: Int) : (Float, Int, Float, Boolean)= {
+  def move(currentPos: Int,  action: Int) : (Float, Int, Double, Boolean)= {
     val (row, col) = calcPos(currentPos, action)
     beyondBorders(row, col) match {
       case true if isTerminal(currentPos) =>
@@ -88,7 +88,7 @@ object GridWorld {
   val LEFT = 3
 
 
- def apply(size: Int = 4, terminalStates: Map[Int, Int] = Map(3 -> 1, 7 -> -1), default: Int = 0) ={
+ def apply(size: Int = 4, terminalStates: Map[Int, Double] = Map(3 -> 1.0, 7 -> -1.0), default: Double = 0) ={
 
    new GridWorld(size, terminalStates, default)
 

@@ -4,8 +4,8 @@ import com.cpuheater.ml.util.GridWorld
 
 object PolicyEvaluation {
 
-  def computePolicyEvaluation(gridWorld: GridWorld, policy: List[List[Float]], gamma: Float, eps: Float)
-  : List[Float] = {
+  def computePolicyEvaluation(gridWorld: GridWorld,
+                              policy: List[List[Float]], gamma: Float, eps: Float): List[Float] = {
     val states = gridWorld.getStates
     val actions = gridWorld.getActions
     var continue = true
