@@ -1,12 +1,10 @@
-package com.cpuheater.ml
+package com.cpuheater.ml.supervised
 
-import com.cpuheater.ml.supervised.LinearRegression
 import com.cpuheater.ml.util.TestSupport
 import org.datavec.api.records.reader.impl.csv.CSVRecordReader
 import org.datavec.api.split.FileSplit
 import org.datavec.api.util.ClassPathResource
 import org.deeplearning4j.datasets.datavec.RecordReaderDataSetIterator
-import org.nd4j.linalg.api.ndarray.INDArray
 import org.nd4j.linalg.dataset.api.DataSet
 import org.nd4j.linalg.dataset.api.iterator.DataSetIterator
 import org.nd4j.linalg.factory.Nd4j

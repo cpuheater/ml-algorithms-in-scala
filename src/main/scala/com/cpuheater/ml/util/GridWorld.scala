@@ -6,10 +6,9 @@ import org.nd4j.linalg.factory.Nd4j
 class GridWorld(size: Int, terminateStates: List[Int], default: Int = -1, terminalDefault: Int=0) {
   import GridWorld._
 
-
   private val grid = (0 until size*size).map{
     index =>
-    if(terminateStates.exists(_ == index))
+    if(terminateStates.contains(index))
       terminalDefault
     else
       default
@@ -63,7 +62,7 @@ class GridWorld(size: Int, terminateStates: List[Int], default: Int = -1, termin
   def move(currentPos: Int,  action: Int) : (Float, Int, Float, Boolean)= {
     val (row, col) = calcPos(currentPos, action)
     beyondBorders(row, col) match {
-      case true if isTerminal(currentPos)=>
+      case true if isTerminal(currentPos) =>
         (1, currentPos, terminalDefault, true)
       case false if  isTerminal(currentPos) =>
         (1, currentPos, terminalDefault, true)

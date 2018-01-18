@@ -1,13 +1,6 @@
-package com.cpuheater.ml
+package com.cpuheater.ml.supervised
 
-import com.cpuheater.ml.supervised.{LinearRegression, LogisticRegression}
 import com.cpuheater.ml.util.{BagOfWordsTransformer, TestSupport}
-import org.nd4j.linalg.api.ndarray.INDArray
-import org.nd4j.linalg.factory.Nd4j
-import scala.collection.JavaConverters._
-import scala.collection.JavaConversions._
-import scala.collection.mutable
-import scala.io.Source
 
 class TextClassificationSpec  extends TestSupport{
 
