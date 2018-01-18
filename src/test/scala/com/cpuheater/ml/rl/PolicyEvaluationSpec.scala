@@ -16,7 +16,7 @@ class PolicyEvaluationSpec  extends TestSupport{
     val gamma = 1
 
     val policy = List
-      .fill[List[Float]](gridWorld.getStates.length)(
+      .fill[List[Float]](gridWorld.getAllStates)(
       List.fill(gridWorld.getActions.length)(1f/gridWorld.getActions.length))
 
     val valueFunction = computePolicyEvaluation(gridWorld, policy, gamma, eps)

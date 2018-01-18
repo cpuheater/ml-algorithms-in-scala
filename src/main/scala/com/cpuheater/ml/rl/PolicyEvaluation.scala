@@ -9,7 +9,7 @@ object PolicyEvaluation {
     val states = gridWorld.getStates
     val actions = gridWorld.getActions
     var continue = true
-    val valueFunction = scala.collection.mutable.ListBuffer.fill(states.length)(0.0f)
+    val valueFunction = scala.collection.mutable.ListBuffer.fill(gridWorld.getAllStates)(0.0f)
 
     var epoch = 0
     while(continue) {

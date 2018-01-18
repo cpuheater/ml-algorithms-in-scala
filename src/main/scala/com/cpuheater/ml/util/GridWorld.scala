@@ -3,34 +3,33 @@ package com.cpuheater.ml.util
 import org.nd4j.linalg.api.ndarray.INDArray
 import org.nd4j.linalg.factory.Nd4j
 
-class GridWorld(size: Int, terminateStates: List[Int], default: Int = -1, terminalDefault: Int=0) {
+class GridWorld(size: Int, terminateStates: Map[Int, Int], default: Int = -1, terminalDefault: Int=0) {
   import GridWorld._
 
   private val grid = (0 until size*size).map{
     index =>
-    if(terminateStates.contains(index))
-      terminalDefault
-    else
-      default
+      terminateStates.getOrElse(index, default)
   }
 
   def getSize = size
 
 
+  def getAllStates: Int = grid.length
+
   def getStates : List[Int] = {
-    (0 until grid.length).toList
+    grid.indices.toList.filterNot(e => terminateStates.keys.exists(_ == e))
   }
 
 
   def getActions : List[Int] = List(UP, RIGHT, DOWN,  LEFT)
 
   private def isTerminal(pos: Int): Boolean =
-    terminateStates.exists(pos == _)
+    terminateStates.keys.exists(pos == _)
 
 
   private def toRowCol(pos: Int): (Int, Int) =  {
-   val row = (pos)/ size
-   val col = (pos) % size
+   val row = pos/ size
+   val col = pos % size
    (row, col)
   }
 
@@ -63,16 +62,16 @@ class GridWorld(size: Int, terminateStates: List[Int], default: Int = -1, termin
     val (row, col) = calcPos(currentPos, action)
     beyondBorders(row, col) match {
       case true if isTerminal(currentPos) =>
-        (1, currentPos, terminalDefault, true)
+        (1, currentPos, grid(currentPos), true)
       case false if  isTerminal(currentPos) =>
-        (1, currentPos, terminalDefault, true)
+        (1, currentPos, grid(currentPos), true)
       case false if  isTerminal(row*size+col)=>
-        (1, row*size+col, default, true)
+        (1, row*size+col, grid(row*size+col), true)
       case true =>
-        (1, currentPos, default, false)
+        (1, currentPos, grid(currentPos), false)
 
       case false =>
-        (1, row*size+col, default, false)
+        (1, row*size+col, grid(row*size+col), false)
     }
 
   }
@@ -89,9 +88,9 @@ object GridWorld {
   val LEFT = 3
 
 
- def apply(size: Int = 4, terminal: List[Int] = List(0, 15), default: Int = -1, terminalDefault: Int=0) ={
+ def apply(size: Int = 4, terminalStates: Map[Int, Int] = Map(3 -> 1, 7 -> -1), default: Int = 0) ={
 
-   new GridWorld(size, terminal, default, terminalDefault)
+   new GridWorld(size, terminalStates, default)
 
  }
 
