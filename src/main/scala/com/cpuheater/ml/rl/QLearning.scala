@@ -8,9 +8,7 @@ object QLearning {
 
 
   def calc(gridWorld: GridWorld, alpha: Double, gamma: Double, eps: Double): List[Double] = {
-    val states = gridWorld.getStates
     val actions = gridWorld.getActions
-    var continue = true
     val qValueFun = scala.collection.mutable.ListBuffer.fill(gridWorld.getAllStates)(ListBuffer.fill(actions.length)(0.0))
 
     val deltas = new ListBuffer[Double]()
@@ -27,6 +25,8 @@ object QLearning {
 
           val (_, nextState, reward, done) = gridWorld.move(currenState, currentAction)
           val currentQ = qValueFun(currenState)(currentAction)
+          if(reward != -0.1f)
+            println("")
 
           val nextMaxAction = argMax(qValueFun(nextState).toList)
           val nextMaxQ = qValueFun(nextState).max

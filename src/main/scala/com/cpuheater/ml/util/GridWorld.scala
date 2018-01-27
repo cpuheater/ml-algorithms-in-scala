@@ -3,10 +3,10 @@ package com.cpuheater.ml.util
 import org.nd4j.linalg.api.ndarray.INDArray
 import org.nd4j.linalg.factory.Nd4j
 
-class GridWorld(size: Int, terminateStates: Map[Int, Double], default: Double = -0.1, terminalDefault: Int=0) {
+class GridWorld(size: Int, terminateStates: Map[Int, Float], default: Float = -0.1f, terminalDefault: Int=0) {
   import GridWorld._
 
-  private val grid: List[Double] = (0 until size*size).map{
+  private val grid: List[Float] = (0 until size*size).map{
     index =>
       terminateStates.getOrElse(index, default)
   }.toList
@@ -58,7 +58,7 @@ class GridWorld(size: Int, terminateStates: Map[Int, Double], default: Double = 
     }
   }
 
-  def move(currentPos: Int,  action: Int) : (Float, Int, Double, Boolean)= {
+  def move(currentPos: Int,  action: Int) : (Float, Int, Float, Boolean)= {
     val (row, col) = calcPos(currentPos, action)
     beyondBorders(row, col) match {
       case true if isTerminal(currentPos) =>
@@ -69,7 +69,6 @@ class GridWorld(size: Int, terminateStates: Map[Int, Double], default: Double = 
         (1, row*size+col, grid(row*size+col), true)
       case true =>
         (1, currentPos, grid(currentPos), false)
-
       case false =>
         (1, row*size+col, grid(row*size+col), false)
     }
@@ -88,7 +87,7 @@ object GridWorld {
   val LEFT = 3
 
 
- def apply(size: Int = 4, terminalStates: Map[Int, Double] = Map(3 -> 1.0, 7 -> -1.0), default: Double = 0) ={
+ def apply(size: Int = 4, terminalStates: Map[Int, Float] = Map(3 -> 1.0f, 7 -> -1.0f), default: Float = 0) ={
 
    new GridWorld(size, terminalStates, default)
 

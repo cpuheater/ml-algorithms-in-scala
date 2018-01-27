@@ -14,18 +14,12 @@ class QLearningSpec  extends TestSupport{
     val eps = 0.1f
     val gamma = 0.9f
     val alpha = 0.1f
-    val gridWorld = GridWorld(default = -0.1)
+    val gridWorld = GridWorld(default = -0.1f)
 
     val qValue = QLearning.calc(gridWorld, alpha, gamma, eps)
     println("Q Value")
     GridWorld.prettyPrint(qValue, gridWorld.getSize)
-    /*println("Policy")
 
-    val optimalPolicyActions = optimalPolicy.flatMap{
-      row =>
-        row.zipWithIndex.find(_._1>0).map(_._2)
-    }
-    GridWorld.prettyPrint(optimalPolicyActions, gridWorld.getSize)*/
 
   }
 
